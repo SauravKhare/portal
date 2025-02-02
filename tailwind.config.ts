@@ -16,7 +16,17 @@ const config: Config = {
 					600: '#252A41',
 				},
 				blue: {
+					300: '#C9DDFF',
 					400: '#0E78F9',
+				},
+				orange : {
+					400: '#FF742E',
+				},
+				purple: {
+					400: '#830EF9',
+				},
+				yellow: {
+					400: '#F9A90E',
 				},
 				light: {
 					500: '#C9DDFF',
@@ -62,6 +72,9 @@ const config: Config = {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+			backgroundImage: {
+				hero: "url('/images/hero-background.png')"
+			},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
