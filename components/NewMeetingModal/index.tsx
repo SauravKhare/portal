@@ -2,6 +2,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 interface NewMeetingModalProps {
 	isOpen: boolean;
@@ -26,6 +27,7 @@ export default function NewMeetingModal({
 	handleClick,
 	children,
 }: NewMeetingModalProps) {
+	const { toast } = useToast();
 	if (isOpen) {
 		return (
 			<div className={className}>
@@ -45,7 +47,13 @@ export default function NewMeetingModal({
 							</h1>
 							{children}
 							<Button
-								onClick={handleClick}
+								onClick={() => {
+									if (handleClick) handleClick();
+									toast({
+										title: "Meeting created",
+										description: "",
+									});
+								}}
 								className="bg-blue-400 focus-visible:ring-0 focus-visible:ring-offset-0"
 							>
 								{buttonIcon && (
