@@ -38,20 +38,20 @@ export default function Home() {
 					className="bg-orange-400"
 				/>
 				<MeetingBox
-					title="Join Meeting"
-					subtitle="Join a meeting with code"
-					iconUrl="/icons/join-meeting.svg"
-					iconAltText="new meeting"
-					meetingTypeString="isJoiningMeeting"
-					className="bg-blue-400"
-				/>
-				<MeetingBox
 					title="Schedule Meeting"
 					subtitle="Plan a meeting for later"
 					iconUrl="/icons/schedule.svg"
 					iconAltText="new meeting"
 					meetingTypeString="isScheduleMeeting"
 					className="bg-purple-400"
+				/>
+				<MeetingBox
+					title="Join Meeting"
+					subtitle="Join a meeting with code"
+					iconUrl="/icons/join-meeting.svg"
+					iconAltText="new meeting"
+					meetingTypeString="isJoiningMeeting"
+					className="bg-blue-400"
 				/>
 				<MeetingBox
 					title="View Recordings"

@@ -26,7 +26,11 @@ export default function Meeting({
 		<main className="h-screen w-full">
 			<StreamCall call={call}>
 				<StreamTheme>
-					{!isReady ? <MeetingSetup /> : <MeetingRoom />}
+					{!isReady ? (
+						<MeetingSetup setIsReady={setIsReady} />
+					) : (
+						<MeetingRoom />
+					)}
 				</StreamTheme>
 			</StreamCall>
 		</main>

@@ -10,7 +10,7 @@ interface NewMeetingModalProps {
 	title: string;
 	image?: string;
 	className?: string;
-	buttonText: string;
+	buttonText?: string;
 	buttonIcon?: string;
 	handleClick?: () => void;
 	children?: React.ReactNode;

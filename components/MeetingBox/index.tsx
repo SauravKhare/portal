@@ -7,6 +7,14 @@ import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
+
+type MeetingType =
+	| "isNewMeeting"
+	| "isJoiningMeeting"
+	| "isScheduleMeeting"
+	| "isViewRecordings"
+	| undefined;
 
 interface MeetingBoxProps {
 	title: string;
@@ -16,13 +24,6 @@ interface MeetingBoxProps {
 	meetingTypeString: MeetingType;
 	className?: string;
 }
-
-type MeetingType =
-	| "isNewMeeting"
-	| "isJoiningMeeting"
-	| "isScheduleMeeting"
-	| "isViewRecordings"
-	| undefined;
 
 export default function MeetingBox({
 	title,
@@ -73,7 +74,8 @@ export default function MeetingBox({
 
 	return (
 		<>
-			{meetingTypeString !== "isNewMeeting" ? (
+			{meetingTypeString !== "isNewMeeting" &&
+			meetingTypeString !== "isScheduleMeeting" ? (
 				<Link href={`/${meetingTypeString}`} passHref>
 					<div
 						onClick={() => console.log(meetingTypeString)}
@@ -109,6 +111,28 @@ export default function MeetingBox({
 							handleClick={handleNewMeeting}
 						/>
 					)}
+					{!callDetails && meetingTypeString === "isScheduleMeeting" ? (
+						<NewMeetingModal
+							isOpen={isModalOpen}
+							setIsOpen={setIsModalOpen}
+							title="Create meeting"
+							handleClick={handleNewMeeting}
+						/>
+					) : null}
+					{callDetails && meetingTypeString === "isScheduleMeeting" ? (
+						<NewMeetingModal
+							isOpen={isModalOpen}
+							setIsOpen={setIsModalOpen}
+							title="Meeting created"
+							handleClick={() => {
+								//navigator.clipboard.writeText(callDetails.id);
+								//toast({title: "Link copied"});
+							}}
+							image="/icons/checked.svg"
+							buttonIcon="/icons/copy.svg"
+							buttonText="Copy meeting link"
+						/>
+					) : null}
 				</div>
 			)}
 		</>

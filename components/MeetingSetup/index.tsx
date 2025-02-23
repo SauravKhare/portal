@@ -8,7 +8,11 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
-export default function MeetingSetup() {
+export default function MeetingSetup({
+	setIsReady,
+}: {
+	setIsReady: (ready: boolean) => void;
+}) {
 	const [isMicCamOn, setIsMicCamOn] = useState(false);
 	const call = useCall();
 	useEffect(() => {
@@ -35,7 +39,13 @@ export default function MeetingSetup() {
 					Disable video and microphone
 				</label>
 				<DeviceSettings />
-				<Button className="rounded-md bg-green-500 px-4 py-2.5">
+				<Button
+					onClick={() => {
+						call?.join();
+						setIsReady(true);
+					}}
+					className="rounded-md bg-green-500 px-4 py-2.5"
+				>
 					Join meeting
 				</Button>
 			</div>
