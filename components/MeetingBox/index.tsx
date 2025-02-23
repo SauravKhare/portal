@@ -8,8 +8,10 @@ import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
+import { Textarea } from "../ui/textarea";
+import ReactDatePicker from "react-datepicker";
 
-type MeetingType =
+export type MeetingType =
 	| "isNewMeeting"
 	| "isJoiningMeeting"
 	| "isScheduleMeeting"
@@ -43,6 +45,7 @@ export default function MeetingBox({
 	const router = useRouter();
 	const { user } = useUser();
 	const client = useStreamVideoClient();
+	const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`;
 
 	async function handleNewMeeting() {
 		if (!user || !client) return;
@@ -79,7 +82,7 @@ export default function MeetingBox({
 				<Link href={`/${meetingTypeString}`} passHref>
 					<div
 						onClick={() => console.log(meetingTypeString)}
-						className={`${className} px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[15px] cursor-pointer`}
+						className={`${className} px-4 py-6 flex flex-col justify-between w-full min-h-[260px] rounded-[15px] cursor-pointer`}
 					>
 						<div className="flex justify-center items-center glass size-12 rounded-[10px]">
 							<Image src={iconUrl} width={27} height={27} alt={iconAltText} />
@@ -92,8 +95,8 @@ export default function MeetingBox({
 				</Link>
 			) : (
 				<div
-					onClick={() => setIsModalOpen(!isModalOpen)}
-					className={`${className} px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[15px] cursor-pointer`}
+					onClick={() => setIsModalOpen(true)}
+					className={`${className} px-4 py-6 flex flex-col justify-between w-full min-h-[260px] rounded-[15px] cursor-pointer`}
 				>
 					<div className="flex justify-center items-center glass size-12 rounded-[10px]">
 						<Image src={iconUrl} width={27} height={27} alt={iconAltText} />
@@ -117,7 +120,36 @@ export default function MeetingBox({
 							setIsOpen={setIsModalOpen}
 							title="Create meeting"
 							handleClick={handleNewMeeting}
-						/>
+							buttonText="Schedule meeting"
+							className="text-center"
+						>
+							<div className="flex flex-col gap-2.5">
+								<label className="text-base text-normal leading-[22px] text-light-500">
+									Add a description
+								</label>
+								<Textarea
+									onChange={(event) => {
+										setValues({ ...values, description: event.target.value });
+									}}
+									className="border-none bg-dark-500 focus-visible:ring-0 focus-visible-ring-offset-0"
+								/>
+							</div>
+							<div className="flex w-full flex-col gap-2.5">
+								<label className="text-base text-normal leading-[22px] text-light-500">
+									Select date and time
+								</label>
+								<ReactDatePicker
+									showTimeSelect
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									timeCaption="time"
+									dateFormat="MMMM d, yyyy h mm aa"
+									selected={values.dateTime}
+									onChange={(date) => setValues({ ...values, dateTime: date! })}
+									className="w-full rounded bg-dark-500 p-2 focus:outline-none"
+								/>
+							</div>
+						</NewMeetingModal>
 					) : null}
 					{callDetails && meetingTypeString === "isScheduleMeeting" ? (
 						<NewMeetingModal
@@ -125,12 +157,14 @@ export default function MeetingBox({
 							setIsOpen={setIsModalOpen}
 							title="Meeting created"
 							handleClick={() => {
-								//navigator.clipboard.writeText(callDetails.id);
-								//toast({title: "Link copied"});
+								navigator.clipboard.writeText(meetingLink);
+								toast({ title: "Link copied" });
 							}}
 							image="/icons/checked.svg"
 							buttonIcon="/icons/copy.svg"
 							buttonText="Copy meeting link"
+							meetingTypeString="isScheduleMeeting"
+							className="text-center"
 						/>
 					) : null}
 				</div>

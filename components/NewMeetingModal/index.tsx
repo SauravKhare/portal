@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { MeetingType } from "../MeetingBox";
 
 interface NewMeetingModalProps {
 	isOpen: boolean;
@@ -14,6 +15,7 @@ interface NewMeetingModalProps {
 	buttonIcon?: string;
 	handleClick?: () => void;
 	children?: React.ReactNode;
+	meetingTypeString?: MeetingType;
 }
 
 export default function NewMeetingModal({
@@ -26,6 +28,7 @@ export default function NewMeetingModal({
 	buttonIcon,
 	handleClick,
 	children,
+	meetingTypeString,
 }: NewMeetingModalProps) {
 	const { toast } = useToast();
 	if (isOpen) {
@@ -49,10 +52,12 @@ export default function NewMeetingModal({
 							<Button
 								onClick={() => {
 									if (handleClick) handleClick();
-									toast({
-										title: "Meeting created",
-										description: "",
-									});
+									if (meetingTypeString === "isNewMeeting") {
+										toast({
+											title: "Meeting created",
+											description: "",
+										});
+									}
 								}}
 								className="bg-blue-400 focus-visible:ring-0 focus-visible:ring-offset-0"
 							>
