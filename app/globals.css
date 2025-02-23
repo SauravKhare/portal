@@ -119,6 +119,62 @@ body {
 	background-color: #0e78f9;
 }
 
+.cl-userButtonPopoverMain {
+	background-color: #252A41;
+	color: #ffffff;
+}
+
+.cl-userButtonPopoverActionButton {
+	color: #ffffff;
+	/* border-bottom: 1px solid #ffffff !important; */
+}
+
+.cl-userButtonPopoverActionButton:hover {
+	color: #0E78F9;
+}
+
+.cl-userButtonPopoverFooter, .cl-pageScrollBox {
+	background: #252A41;
+}
+
+.cl-navbar {
+	background: #252A41;
+	color: #ffffff;
+}
+
+.cl-navbar h1 {
+	color: #ffffff;
+}
+
+.cl-navbarButtons .cl-button {
+	color: #ffffff;
+}
+
+.cl-profilePage, .cl-userPreview {
+	color: #ffffff;
+}
+
+.cl-profileSectionPrimaryButton {
+	background-color: #0E78F9;
+	color: #ffffff;
+}
+
+.cl-profileSectionPrimaryButton:hover {
+	color: #ffffff;
+}
+
+.cl-profileSectionItem {
+	color: #ffffff !important;
+}
+
+.cl-profileSectionItem .cl-profileSectionItem__connectedAccounts > p {
+	color: #ffffff !important;
+}
+
+.cl-profileSectionItem .cl-profileSectionItem__username > p {
+	color: #ffffff!important;
+}
+
 .glass {
 	background: rgba(255, 255, 255, 0.25);
 	backdrop-filter: blur(4px);
