@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 import { Textarea } from "../ui/textarea";
 import ReactDatePicker from "react-datepicker";
+import { Input } from "../ui/input";
 
 export type MeetingType =
 	| "isNewMeeting"
@@ -78,8 +79,14 @@ export default function MeetingBox({
 	return (
 		<>
 			{meetingTypeString !== "isNewMeeting" &&
-			meetingTypeString !== "isScheduleMeeting" ? (
-				<Link href={`/${meetingTypeString}`} passHref>
+			meetingTypeString !== "isScheduleMeeting" &&
+			meetingTypeString !== "isJoiningMeeting" ? (
+				<Link
+					href={`/${
+						meetingTypeString === "isViewRecordings" ? "recordings" : ""
+					}`}
+					passHref
+				>
 					<div
 						onClick={() => console.log(meetingTypeString)}
 						className={`${className} px-4 py-6 flex flex-col justify-between w-full min-h-[260px] rounded-[15px] cursor-pointer`}
@@ -113,6 +120,29 @@ export default function MeetingBox({
 							buttonText="Start Meeting"
 							handleClick={handleNewMeeting}
 						/>
+					)}
+					{meetingTypeString === "isJoiningMeeting" && (
+						<NewMeetingModal
+							isOpen={isModalOpen}
+							setIsOpen={setIsModalOpen}
+							title="Enter meeting link"
+							handleClick={() => {
+								router.push(`${values.link}`);
+							}}
+							image=""
+							buttonIcon=""
+							buttonText="Join meeting"
+							meetingTypeString="isScheduleMeeting"
+							className="text-center"
+						>
+							<Input
+								className="border-none bg-dark-600 focus-visible:ring-0 focus-visible:ring-offset-0"
+								placeholder="Meeting link"
+								onChange={(event) => {
+									setValues({ ...values, link: event.target.value });
+								}}
+							/>
+						</NewMeetingModal>
 					)}
 					{!callDetails && meetingTypeString === "isScheduleMeeting" ? (
 						<NewMeetingModal
