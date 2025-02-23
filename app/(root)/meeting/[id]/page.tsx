@@ -18,7 +18,7 @@ export default function Meeting({
 	params: { id: meetingID },
 }: MeetingPageProps) {
 	const [isReady, setIsReady] = useState(false);
-	const { user, isLoaded } = useUser();
+	const { isLoaded } = useUser();
 	const { call, isCallLoading } = useGetCallById(meetingID);
 
 	if (!isLoaded || isCallLoading) return <Loader />;

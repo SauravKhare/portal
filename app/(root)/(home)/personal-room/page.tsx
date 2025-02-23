@@ -34,9 +34,7 @@ const PersonalRoom = () => {
 	const { toast } = useToast();
 
 	const meetingId = user?.id;
-
 	const { call } = useGetCallById(meetingId!);
-
 	const startRoom = async () => {
 		if (!client || !user) return;
 
@@ -49,7 +47,6 @@ const PersonalRoom = () => {
 				},
 			});
 		}
-
 		router.push(`/meeting/${meetingId}?personal=true`);
 	};
 

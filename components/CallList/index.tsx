@@ -45,6 +45,7 @@ export default function CallList({ type }: CallListProps) {
 				setRecordedCalls(recordings);
 			} catch (error) {
 				toast({ title: "Try again later" });
+				console.error(error);
 			}
 		};
 
