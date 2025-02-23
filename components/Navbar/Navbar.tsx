@@ -19,9 +19,11 @@ export default function Navbar() {
 				</p>
 			</Link>
 			<div className="flex justify-between gap-5">
+				{/* @ts-expect-error type error */}
 				<SignedOut>
 					<SignInButton />
 				</SignedOut>
+				{/* @ts-expect-error type error */}
 				<SignedIn>
 					<UserButton />
 				</SignedIn>

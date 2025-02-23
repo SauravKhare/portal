@@ -22,6 +22,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
+		// @ts-expect-error ClerkProvider
 		<ClerkProvider>
 			<html lang="en">
 				<body className={`${inter.className} bg-dark-400 antialiased`}>
